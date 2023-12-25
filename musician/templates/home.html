@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block content %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Musician Name</th>
+      <th>Email</th>
+      <th>Instrument Type</th>
+      <th>Album Name</th>
+      <th>Release Date</th>
+      <th>Rating</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for mus in musician %} 
+    {% for album in mus.album_set.all %}
+    <tr>
+      <td>{{ musician.id }}</td>
+      <td>
+        <a href="{% url 'edit_musician' musician.id %}"
+          >{{ mus.first_name }} {{ mus.last_name }}</a
+        >
+      </td>
+      <td>{{ mus.email }}</td>
+      <td>{{ mus.instrument_type }}</td>
+      <td>{{ album.name }}</td>
+      <td>{{ album.release_date }}</td>
+      <td>{{ album.rating }}</td>
+      <td>
+        <a href="{% url 'musician_edit' musician.id %}">Edit Musician</a> |
+        <a href="{% url 'album_edit' album.id %}">Edit Album</a>
+        <!-- You can add delete links/buttons here if needed -->
+      </td>
+    </tr>
+    {% endfor %} 
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
